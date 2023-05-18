@@ -45,11 +45,11 @@ function App() {
 
           <header className="App-header">
             <div className="mb-3">
-              <img src='logoFutebol.png' className='w-50' /><br></br>
+              <img src='logoFutebol.png' className='w-25' /><br></br>
               <label htmlFor="apiToken" className="form-label">
                 Informe o 'API Token' para acessar o sistema:
               </label>
-              <input type="text" className="form-control" id="apiToken" onChange={(e) => setToken(e.target.value)} />
+              <input type="text" className="form-control text-center mx-auto w-75" id="apiToken" onChange={(e) => setToken(e.target.value)} />
             </div>
             <button type="button" onClick={ClickLogin} className="btn btn-primary">
               Acessar

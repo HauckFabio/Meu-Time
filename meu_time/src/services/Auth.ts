@@ -25,10 +25,12 @@ const login = (token: any) => {
 };
 
 const logout = () => {
-    cookies.remove('user');
-    cookies.remove('token');
-    cookies.remove('perfil');
-    cookies.remove('roles');
+    const allCookies = cookies.getAll();
+
+    Object.keys(allCookies).forEach(cookieName => {
+    cookies.remove(cookieName);
+    });
+		
     observable.clearToken()
     return true;
 

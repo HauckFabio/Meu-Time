@@ -11,12 +11,8 @@ function NavBar() {
 
 	const cookies = new Cookies();
 	const clickBar = () => {
-		const allCookies = cookies.getAll();
 
-		Object.keys(allCookies).forEach(cookieName => {
-		cookies.remove(cookieName, { path: '/' });
-		});
-		AuthService.logout();
+	AuthService.logout();
 		navigate('/login');
 	}
 

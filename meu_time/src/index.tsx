@@ -47,14 +47,14 @@ const rootElement = document.getElementById('root');
             fullscreen={false}
             title={
             <>
-              <div className='text-center'>
+              <div className='text-center text-white'>
               <small>CARREGANDO</small>
               </div>
             </>
             }
             text={
               <>
-              <div className='text-center'>
+              <div className='text-center text-white'>
                   <div className="spinner-border text-primary" role="status">
                     <span className="visually-hidden"></span>
                   </div>
@@ -64,7 +64,7 @@ const rootElement = document.getElementById('root');
             }
             footer={
               <>
-               <div className='text-end end-div mb-2'>
+               <div className='text-end end-div mb-2 text-white'>
                 <small className='mb-4'>Aguarde...</small>
               </div>    
               </>
@@ -107,7 +107,7 @@ function PrivateRoute() {
       {
         console.info('Fazendo Logout');
         setToken(null);
-        navigate('/');
+        navigate('/login');
       }
     });
     Auth.observable.setToken(Auth.getToken());
@@ -122,11 +122,12 @@ function PrivateRoute() {
      
         <Route path="/login" element={<App />} />
         <Route path="/home" element={<Home />} />
-        <Route path="*" element={<App />} />
+        <Route path="*" element={<Home />} />
       
     </>)
     :
     (<>
+      <Route path="/login" element={<App />} />
      <Route path="*" element={<App />} />
     </>)
     }
