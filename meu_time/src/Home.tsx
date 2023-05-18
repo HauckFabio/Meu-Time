@@ -22,14 +22,14 @@ function Home() {
   const [errorAcesso, setErrorAcesso] = useState("");
 
   useEffect(() => {
-       HomeService.countries().then((r) => {
+  /*      HomeService.countries().then((r) => {
         setCountries(r.data.response);
 
         HomeService.seasons().then((response) => {
          setSeasons(response.data.response); 
        });
        }); 
- 
+  */
       }, []);
   
     const handleLiga = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -95,7 +95,7 @@ function Home() {
     }
    
     const FlagLeague = () => {
-  
+      
       let img = flagLeagueImg;
   
       if(img !== "")
@@ -115,23 +115,27 @@ function Home() {
       }
       
     }
+    const clickTimes = () => {
+
+    }
 
   return (
     <div className="App">
 
       <header className="App-header">
         <FlagImg/>
-        <div className='col-6'>
+        <div className='col-12'>
           <label>Escolha uma Nação</label>
-        <select className="form-control mb-3" value={selectedCountrie} onChange={(e) => handleNação(e)}>
-          <option value="" defaultChecked>Selecione uma Nação </option>
-          {countries.length > 0 && countries.map((val : any, i : any) => (
-          
-            <option key={i} id={val.flag} value={val.code} >{val.name}</option>
+        
+        <select className="form-control mb-3 text-center mx-auto w-75" value={selectedCountrie} onChange={(e) => handleNação(e)}>
+          <option value="" defaultChecked>Selecione uma Nação</option>
+          {countries.length > 0 && countries.map((val: any, i: any) => (
+            <option key={i} id={val.flag} value={val.code}>{val.name}</option>
           ))}
         </select>
-          <label>Escolha uma Temporada</label>
-        <select className="form-control mb-3" value={selectedSeasons} onChange={(e) => handleTemporada(e)}>
+          
+          <label className='col-12'>Escolha uma Temporada</label>
+        <select className="form-control mb-3 text-center mx-auto w-75" value={selectedSeasons} onChange={(e) => handleTemporada(e)}>
           <option value="" defaultChecked>Selecione uma Temporada </option>
           {seasons.length > 0 && seasons.map((val : any, i : any) => (
             <option key={i} id={i} value={val} >{val}</option>
@@ -140,13 +144,16 @@ function Home() {
         {leagues.length > 0 && 
         <>
         { selectedLeagues !== "" && selectedCountrie !== "" && selectedSeasons !== "" && <FlagLeague/> }
-          <label>Escolha uma Liga</label>
-        <select className="form-control mb-3" value={selectedLeagues} onChange={(e) => handleLiga(e)}>
+          <label className='col-12'>Escolha uma Liga</label>
+        <select className="form-control mb-3 text-center mx-auto w-75" value={selectedLeagues} onChange={(e) => handleLiga(e)}>
           <option value="" >Selecione uma Liga </option>
           {leagues.length > 0 && leagues.map((val : any, i : any) => (
             <option key={i} id={val.league.id} value={val.league.id} >{val.league.name}</option>
           ))}
         </select>
+        <button type="button" onClick={() => clickTimes} className="btn btn-primary">
+              Buscar Times
+        </button>
         </>
         }
 

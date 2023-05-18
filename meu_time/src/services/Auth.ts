@@ -1,19 +1,21 @@
 import api from "./Api";
-
+import { Subject } from 'rxjs';
 import Cookies from "universal-cookie";
 
+const subject = new Subject();
 const cookies = new Cookies();
 
 const login = (token: any) => {
     cookies.set('token', token);
 
     return api.get("v3/timezone")
-        .then((response: any) => {
-            console.log(response);
-
-            if (response.status !== 200) {
-                return null;
-            }
+    .then((response: any) => {
+        if (response.status !== 200) {
+            logout();
+            return null;
+        }
+        
+        observable.setToken(token);
             return response;
         })
         .catch((error: any) => {
@@ -21,6 +23,17 @@ const login = (token: any) => {
             // O erro será registrado no console, mas não será lançado novamente.
         });
 };
+
+const logout = () => {
+    cookies.remove('user');
+    cookies.remove('token');
+    cookies.remove('perfil');
+    cookies.remove('roles');
+    observable.clearToken()
+    return true;
+
+};
+
 const getToken = () => {
     let token = cookies.get('token');
     if(token !== null)
@@ -30,9 +43,17 @@ const getToken = () => {
     return null;
 };
 
+const observable = {
+    setToken: (token:any) => subject.next(token),
+    clearToken: () => subject.next(null),
+    onToken: () => subject.asObservable()
+};
+
+
 export default {
 
     login, 
     getToken,
-    
+    observable,
+    logout,
 }

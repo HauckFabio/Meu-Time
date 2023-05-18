@@ -15,15 +15,20 @@ function App() {
   const [modalError, setModalError] = useState(false);
   const [errorAcesso, setErrorAcesso] = useState("");
 
+
+  
+  useEffect(() => {
+    AuthService.logout();
+  }, []);
+
   const ClickLogin = () => {
     AuthService.login(token)?.then((r) => {
-      if (r !== undefined)
+      console.log(r);
+      if (r !== null)
         {
-            //logou
+          
+          navigate('/home');
             
-              navigate('/Home');
-            
-       
         }
       else {
         setModalError(true);

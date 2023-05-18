@@ -8,7 +8,6 @@ const apiService = axios.create({
 
 apiService.interceptors.request.use(async (config) => {
   const token = auth.getToken();
-  console.log(token);
   if (token) {
     config.headers = {
       'x-rapidapi-key': token,
