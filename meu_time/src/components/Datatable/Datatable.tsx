@@ -12,8 +12,7 @@ const Datatable = (props: any) => {
     return (
       <tr>
         {props.header.map((nome: any) => (
-          <th key={nome} className="sorting sorting_des m-4" aria-controls="datatables-reponsive" aria-label="Name: activate to sort column ascending" aria-sort="descending">
-            {nome === "PRIORIDADE" && props.orders}
+          <th key={nome} className="sorting sorting_des" aria-controls="datatables-reponsive" aria-label="Name: activate to sort column ascending" aria-sort="descending">
             <b><h4>{nome}</h4></b>
           </th>
         ))}
@@ -30,13 +29,10 @@ const Datatable = (props: any) => {
   };
 
   return (
-    <div className="table-responsive" >
-      <div className='card' style={{ overflow: "auto", background: "darkgrey" }}>
-        <div className='card-body m-2' >
-          <div className='mb-4 m-2 text-start'>
-            {props.filter === undefined ? <small> </small> : <h3>FILTRAR POR</h3>}
-            {props.filter}
-          </div>
+    
+      <div className='card' style={{ overflow: "auto", boxShadow: "none", background: "darkgrey" }}>
+        <div className='card-body' >
+        
           <table className={props.estilo}>
             <thead >
               {props.title}
@@ -48,10 +44,7 @@ const Datatable = (props: any) => {
           </table>
         </div>
       </div>
-      {props.modal1}
-      {props.modal2}
-      {props.modal3}
-    </div>
+   
   );
 };
 

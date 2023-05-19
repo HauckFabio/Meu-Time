@@ -1,16 +1,16 @@
 import React, { useEffect, useState  } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
-import './index.css';
-import App from './App';
-import Home from './Home';
+import './css/index.css';
+import App from './views/App';
+import Home from './views/Home';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cookies from "universal-cookie";
 import NavBar from './components/NavBar/NavBar';
 import Auth from './services/Auth';
 import Modals from './components/Modal/Modals';
-import Loading from '../../meu_time/src/components/Utils/Loading';
+import Loading from './components/Utils/Loading';
 
 const cookies = new Cookies();
 const rootElement = document.getElementById('root'); 
@@ -33,7 +33,6 @@ const rootElement = document.getElementById('root');
                 setLoading(false);
                 setModalLoadShow(false)
             }
-            console.log(subscription);
         });
         // return unsubscribe method to execute when component unmounts
         return subscription.unsubscribe;
@@ -79,9 +78,9 @@ const rootElement = document.getElementById('root');
   createRoot(rootElement).render(
     <BrowserRouter>
     < LoadingBar/>
-      <div className='wrapper'>
+      <div className='wrapper' style={{ background: "#282c34" }}>
         <NavBar/>
-        <div className='main'>
+        <div className='main' style={{ background: "#282c34" }}>
           <PrivateRoute />
         </div>
       </div>
@@ -113,27 +112,30 @@ function PrivateRoute() {
     Auth.observable.setToken(Auth.getToken());
     return subscription.unsubscribe;
   }, []);
-  
-  return (
+
+    return (
     <>
-     <Routes>
-    {token !== null ? (
-      <>
-     
-        <Route path="/login" element={<App />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="*" element={<Home />} />
+      <Routes>
+        <>
+        {token === null ?
+        (<>
+        <Route path='/login' element={<App />}/>
+        <Route path='/' element={<App />}/>
+        <Route path='*' element={<App />}/>
+        </>)
+        :
+        (<>
+        <Route path='/login' element={<App />}/>
+        <Route path='/' element={<Home />}/>
+        <Route path='*' element={<Navigate to="/" />}/>
+        </>)
       
-    </>)
-    :
-    (<>
-      <Route path="/login" element={<App />} />
-     <Route path="*" element={<App />} />
-    </>)
-    }
-    </Routes>
-  </>
-  );
-}
+        }
+        </>
+      </Routes>
+    </>
+  /*  */
+    );
+  }
 
 reportWebVitals();

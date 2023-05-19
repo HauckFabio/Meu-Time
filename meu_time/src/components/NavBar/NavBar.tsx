@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { cleanup } from '@testing-library/react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import AuthService from '../../../src/services/Auth';
@@ -10,13 +11,30 @@ function NavBar() {
 	const location = useLocation();
 
 	const cookies = new Cookies();
+
+	useEffect(() => {
+		cleanup();
+
+		const subscription = AuthService.observable.onToken().subscribe((token: any) => {
+		if(token)
+		{
+			navigate('/');		
+		}
+		else
+		{
+			navigate('/');
+		}
+		});
+		return subscription.unsubscribe;
+	  }, []);
+
 	const clickBar = () => {
 
 	AuthService.logout();
 		navigate('/login');
 	}
-
- if( location.pathname !== "/login")
+	{console.log(AuthService.getToken())}
+ if(AuthService.getToken() !== undefined)
  {
 	return (
 		<>
@@ -24,11 +42,11 @@ function NavBar() {
 		 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div className="container-fluid text-white justify-content-center">
 			
-				<h3>MEU TIME</h3>
+				<h3>BEM VINDO AO MEU TIME</h3>
 			</div>
 			<div className="container-fluid text-white justify-content-end">
-			<a className="link" onClick={ clickBar } style={{  cursor: 'pointer'  }}>
-				Sair
+			<a className="btn btn-primary" onClick={ clickBar } style={{  cursor: 'pointer'  }}>
+			SAIR
 				</a>
 			</div>
 			</nav>
@@ -37,9 +55,9 @@ function NavBar() {
 		 <div className="bd-example">
 				<nav className="navbar navbar-dark bg-dark">
 				<div className="container-fluid text-white">
-				<h3>MEU TIME</h3>
-				<a className="link" onClick={ clickBar } style={{  cursor: 'pointer'  }}>
-				Sair
+				<h3>BEM VINDO AO MEU TIME</h3>
+				<a className="btn btn-primary" onClick={ clickBar } style={{  cursor: 'pointer'  }}>
+				SAIR
 				</a>
 				</div>
 				</nav>
