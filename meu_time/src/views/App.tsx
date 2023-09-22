@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import '../css/App.css';
 import AuthService from '../services/Auth';
 import HomeService from '../services/Home';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import Modals from '../components/Modal/Modals';
 import Cookies from "universal-cookie";
 
@@ -63,6 +63,9 @@ function App() {
             <button type="submit" onClick={ClickLogin} className="btn btn-primary btn-lg">
               ENTRAR
             </button>
+            <a href='https://rapidapi.com/api-sports/api/api-football/' target='_blank' type="submit" className="btn btn-primary btn-lg m-2">
+              REGISTRAR
+            </a>
           </header>
 
           <Modals
